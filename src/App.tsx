@@ -6,16 +6,9 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1>Home page</h1>
-
-
-<h1>Home page</h1>
-
-
-
-       
-       
+      <div className="min-h-screen flex items-center justify-center bg-zinc-100 p-4 font-thin">
+        // Enter your name to start chatting
+        {}
       </div>
     </>
   )
