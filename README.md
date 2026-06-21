@@ -34,6 +34,10 @@ It solves the problem of real time chat application.
 	
 	user-A	<--->	server	<--->	user-B
 
+Image:
+
+![Uploading image.png…]()
+
 
 
 
