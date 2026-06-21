@@ -36,7 +36,7 @@ It solves the problem of real time chat application.
 
 Image:
 
-![Uploading image.png…]()
+![Architecture imgage](arch-image.png)
 
 
 
