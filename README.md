@@ -1,8 +1,5 @@
 # Chat App Project
 
-https://www.youtube.com/watch?v=Xn_j5sE6M_k
-
-
 For real time application we use web socket
 
 
