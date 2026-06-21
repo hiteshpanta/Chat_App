@@ -36,7 +36,7 @@ It solves the problem of real time chat application.
 
 Image:
 
-![Architecture imgage](public/arch-image.png)
+![Architecture image](public/arch-image.png)
 
 
 
