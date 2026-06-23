@@ -2,5 +2,5 @@ import { io } from "socket.io-client";
 
 
 export function connectWs() {
-    return io();
+    return io('http://localhost:4600');
 }
