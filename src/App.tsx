@@ -13,7 +13,7 @@ function App() {
 
 
   const [ messages, setMessages ] = useState<string[]>([]);
-  // const [ text, setText ] = useState<string>('');
+  const [ text, setText ] = useState<string>('');
 
 
   useEffect(() => {
