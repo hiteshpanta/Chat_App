@@ -21,7 +21,7 @@ function App() {
 
     socket.current.on("connect", () => {
 
-      socket.current.emit('joinRoom', userName);
+      
 
 
     })
@@ -42,6 +42,17 @@ function App() {
     const trimmed = inputName.trim();
     if (!trimmed) return;
 
+// join the room with the user name
+    socket.current.emit('joinRoom', trimmed);
+
+    setUserName(trimmed);
+    setShowNamePopup(false);
+
+  }
+
+  function sendMessage() {
+    const t= text.trim();
+    if (!t) return;
   }
  
 
