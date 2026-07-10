@@ -200,7 +200,6 @@ function App() {
                   Send
                 </button>
 
-                <div></div>
               </div>
 
             </div>
