@@ -193,12 +193,12 @@ function App() {
                   placeholder="Type a message..."
                   className="w-full resize-none px-4 text-sm outline-none"
                 />
-                {/* <button
+                <button
                   onClick={sendMessage}
                   className="bg-green-500 text-white px-4 py-2 mr-2 rounded-full text-sm font-medium cursor-pointer"
                 >
                   Send
-                </button> */}
+                </button>
 
               </div>
 
