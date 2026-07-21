@@ -172,11 +172,11 @@ function App() {
                 />
 
 
-                {/* <button
+                <button
                   type="submit"
                   className="block ml-auto mt-3 px-4 py-1.5 rounded-full bg-green-500 text-white font-medium cursor-pointer">
                   Continue
-                </button> */}
+                </button>
               </form>
             </div>
 
