@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This is backend for chat app",
+  "keywords": [
+    "Node.js",
+    "Socket IO"
+  ],
+  "homepage": "https://github.com/hiteshpanta/Chat_App#readme",
+  "bugs": {
+    "url": "https://github.com/hiteshpanta/Chat_App/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiteshpanta/Chat_App.git"
+  },
+  "license": "ISC",
+  "author": "Hitesh",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}
