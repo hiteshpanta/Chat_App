@@ -5,15 +5,50 @@ import { connectWs } from "./ws";
 
 function App() {
 
+  type MessageProps = {
+    id: number;
+    sender: string | null;
+    text: string;
+    ts: number;
+  }
+
   const socket = useRef<any>(null);
+
+  const timer = useRef<any>(null)
 
   const [ userName, setUserName ] = useState<string | null>(null);
   const [ showNamePopup, setShowNamePopup ] = useState<boolean>(true);
   const [ inputName, setInputName] = useState<string>('');
+  const [ typers, setTypers ] = useState<any>([])
 
 
-  const [ messages, setMessages ] = useState<string[]>([]);
+  const [ messages, setMessages ] = useState<MessageProps[]>([]);
   const [ text, setText ] = useState<string>('');
+
+
+
+// for Typing Event
+  useEffect(() => {
+
+    if (text) {
+      socket.current.emit('typing', userName);
+      //It is called Debounce when user stop typing it exit from timer
+      clearTimeout(timer.current)
+
+    }
+
+    timer.current = setTimeout(() => {
+        socket.current.emit('stopTyping', userName)
+
+    }, 2000);
+
+    // cleaning funciton inside useEffect
+    return () => {
+      clearTimeout(timer.current)
+    };
+
+
+  }, [text,userName])
 
 
   useEffect(() => {
@@ -25,16 +60,44 @@ function App() {
         console.log(`${userName} joined to group`);
       });
 
-      socket.current.on('chatMessage', (msg: string) => {
+      socket.current.on('chatMessage', (msg: MessageProps) => {
 
         // push to existing messages list
         console.log("mesage: ", msg)
         setMessages((prev: any) => [...prev, msg])
+      });
+
+      socket.current.on('typing', (userName: string) => {
+        setTypers((prev: any) => {
+          const isExist = prev.find((typers: string) => typers === userName);
+          if (!isExist) {
+            return [...prev, userName]
+          }
+
+          return prev;
+        });
+
+
+      });
+
+      socket.current.on('stopTyping', (userName: string) => {
+        setTypers((prev: any) => prev.filter((typer: any) => typer !== userName));
+
       })
       
 
 
-    })
+    });
+// at the end we have to clean-up every subscribed event
+    return () => {
+
+      socket.current.off('roomNotice');
+      socket.current.off('chatMessage');
+      socket.current.off('typing');
+      socket.current.off('stopTyping');
+      socket.current.disconnect();
+
+    }
   },[])
 
 
@@ -135,7 +198,12 @@ function App() {
                 <div className="text-sm font-medium text-[#303030]">
                   Realtime group chat
                 </div>
-                <div className="text-xs text-gray-500">Someone is typing...</div>
+                {typers.length ? (
+                                    <div className="text-xs text-gray-500">{typers.join(', ')} is typing...</div>
+                                  ): (
+                                    ''
+                                  )
+                }
 
               </div>
 
@@ -157,7 +225,7 @@ function App() {
                     key={m.id}
                     className={`flex ${mine ? 'justify-end' : 'justify-start'}`}
                   >
-                    <div className={`max-w-[78%] p-3 my-2 rounded-[18px] text-sm leading-5 shadow-sm ${mine ? 'bg-[#DCF8C6 text-[#303030] rounded-br-2xl'
+                    <div className={`max-w-[78%] p-3 my-2 rounded-[18px] text-sm leading-5 shadow-sm ${mine ? 'bg-[#DCF8C6] text-[#303030] rounded-br-2xl'
                       : 'bg-white text-[#303030] rounded-bl-2xl'
                     }`}>
                       <div className="break-words whitespace-pre-wrap">
@@ -185,7 +253,7 @@ function App() {
 
             <div className="px-4 py-3 border-t border-gray-200 bg-white">
               <div className="flex items-center justify-between gap-4 border border-gray-200 rounded-full">
-                <textarea name="" id=""
+                <textarea
                   rows={1}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
