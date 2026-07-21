@@ -138,7 +138,7 @@ function App() {
     setMessages((m: any) => [...m, msg]);
 
     //emit
-    socket.current('chatMessage', msg);
+    socket.current.emit('chatMessage', msg);
 
     setText('');
   }
@@ -217,8 +217,8 @@ function App() {
 
             {/* CHAT MESSAGE LIST */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-100 flex flex-col">
-              {messages.map((m: any) => {
-                const mine= m.sender === userName;
+              {messages?.map((m: any) => {
+                const mine = m.sender === userName;
 
                 return (
                   <div
@@ -228,7 +228,7 @@ function App() {
                     <div className={`max-w-[78%] p-3 my-2 rounded-[18px] text-sm leading-5 shadow-sm ${mine ? 'bg-[#DCF8C6] text-[#303030] rounded-br-2xl'
                       : 'bg-white text-[#303030] rounded-bl-2xl'
                     }`}>
-                      <div className="break-words whitespace-pre-wrap">
+                      <div className="-wrap-break-words whitespace-pre-wrap">
                         {m.text}
                       </div>
 
